@@ -45,7 +45,7 @@ export async function initContract() {
   // @ts-ignore
   window.account = new Account(near, window.accountId);
   // Initializing our contract APIs by contract name and configuration
-  window.contract = await new Contract(
+  window.contract = new Contract(
     window.walletConnection.account(),
     nearConfig.contractName,
     {

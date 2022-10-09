@@ -44,22 +44,7 @@ export default function Mint() {
     setMintable(5777 - totalSupply);
   }, [totalSupply]);
 
-  const mintNFT = async () => {
-    console.log("object");
-    let recentCount = totalSupply;
-    // for (let i = 1; i <= amount; i++) {
-    console.log(totalSupply);
-    console.log(recentCount);
-    await window.contract.nft_mint(
-      {},
-      300000000000000, // attached GAS (optional)
-      new BN("11000000000000000000000000")
-    );
-    // }
-  };
-
-  async function sendTransactions() {
-    // console.log(window.accountId);
+  async function mintNFT() {
     let content = [];
     for (let i = 0; i < amount; i++) {
       content[i] = transactions.functionCall(
@@ -69,8 +54,8 @@ export default function Mint() {
         new BN("11000000000000000000000000")
       );
     }
-    const result = await window.contract.account.signAndSendTransaction({
-      receiverId: "duegeon01.testnet",
+    await window.contract.account.signAndSendTransaction({
+      receiverId: window.contract.contractId,
       actions: content,
     });
   }
@@ -114,7 +99,7 @@ export default function Mint() {
               </MintInputContainer>
               <MintButtonAction
                 disabled={mintable <= 0}
-                onClick={() => sendTransactions()}
+                onClick={() => mintNFT()}
               >
                 Mint
               </MintButtonAction>
